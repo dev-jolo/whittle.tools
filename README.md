@@ -6,7 +6,7 @@ A one-stop collection of fast, privacy-friendly developer utilities. Every tool
 runs entirely in your browser — nothing you type is ever uploaded. Server-side
 rendered for SEO, installable as a PWA, and deployed to Cloudflare Workers.
 
-**Live:** https://whittle.tools
+**Live:** https://whittle-tools.jolonoval-dev.workers.dev
 
 ## Tools
 

@@ -5,9 +5,14 @@
 export const siteConfig = {
 	name: "whittle.tools",
 	shortName: "whittle",
-	domain: "whittle.tools",
-	/** Canonical origin. Override via VITE_SITE_URL in other environments. */
-	url: import.meta.env.VITE_SITE_URL ?? "https://whittle.tools",
+	domain: "whittle-tools.jolonoval-dev.workers.dev",
+	/**
+	 * Canonical origin — currently the Cloudflare workers.dev subdomain. When a
+	 * custom domain is attached, set VITE_SITE_URL (or change this default).
+	 */
+	url:
+		import.meta.env.VITE_SITE_URL ??
+		"https://whittle-tools.jolonoval-dev.workers.dev",
 	tagline: "Sharp little tools for developers.",
 	description:
 		"A fast, privacy-friendly collection of developer utilities. Transform text and data right in your browser — nothing ever leaves your device.",
