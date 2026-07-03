@@ -29,6 +29,7 @@
 		"typescript": "5.9.3",
 		"vite": "^7.0.0",
 		"vite-tsconfig-paths": "5.1.4",
+		"vitest": "^4.1.9",
 		"wrangler": "4.88.0"
 	},
 	"private": true,
@@ -40,6 +41,8 @@
 		"dev": "react-router dev",
 		"icons": "node scripts/generate-icons.mjs",
 		"preview": "npm run build && vite preview",
+		"test": "vitest run",
+		"test:watch": "vitest",
 		"typecheck": "wrangler types && react-router typegen && tsc -b"
 	},
 	"type": "module"

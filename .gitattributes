@@ -1,0 +1,15 @@
+# Normalize line endings: store text as LF in the repo and on checkout so the
+# codebase stays consistent across macOS, Linux, and Windows contributors.
+* text=auto eol=lf
+
+# Binary assets — never touch these.
+*.png binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+
+# Keep the lockfile from being marked as a reviewable diff by default.
+pnpm-lock.yaml linguist-generated=true -diff
