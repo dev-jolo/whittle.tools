@@ -11,8 +11,7 @@ export const siteConfig = {
 	tagline: "Sharp little tools for developers.",
 	description:
 		"A fast, privacy-friendly collection of developer utilities. Transform text and data right in your browser — nothing ever leaves your device.",
-	// TODO: point this at the real repository once published.
-	repo: "https://github.com/whittle-tools/whittle.tools",
+	repo: "https://github.com/dev-jolo/whittle.tools",
 	author: "whittle.tools",
 	locale: "en_US",
 	themeColor: {
