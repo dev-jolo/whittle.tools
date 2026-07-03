@@ -1,109 +1,89 @@
-# Welcome to React Router + Cloudflare Workers!
+# whittle.tools
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/react-router-starter-template)
+> Sharp little tools for developers.
 
-![React Router Starter Template Preview](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/bfdc2f85-e5c9-4c92-128b-3a6711249800/public)
+A one-stop collection of fast, privacy-friendly developer utilities. Every tool
+runs entirely in your browser — nothing you type is ever uploaded. Server-side
+rendered for SEO, installable as a PWA, and deployed to Cloudflare Workers.
 
-<!-- dash-content-start -->
+**Live:** https://whittle.tools
 
-A modern, production-ready template for building full-stack React applications using [React Router](https://reactrouter.com/) and the [Cloudflare Vite plugin](https://developers.cloudflare.com/workers/vite-plugin/).
+## Tools
 
-## Features
+| Tool                        | What it does                                                    |
+| --------------------------- | -------------------------------------------------------------- |
+| [Splitter](/tools/splitter) | Turn a list of text into a formatted array or delimited string |
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-- 🔎 Built-in Observability to monitor your Worker
-<!-- dash-content-end -->
+More on the way — the architecture makes adding one a small, self-contained job
+(see [Adding a tool](#adding-a-tool)).
 
-## Getting Started
+## Tech stack
 
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
+- **[React Router 7](https://reactrouter.com/)** (framework mode) with SSR
+- **[React 19](https://react.dev/)** + **TypeScript**
+- **[Vite 7](https://vite.dev/)** with the **[Cloudflare Vite plugin](https://developers.cloudflare.com/workers/vite-plugin/)**
+- **[Tailwind CSS v4](https://tailwindcss.com/)** + **[shadcn/ui](https://ui.shadcn.com/)** (Radix primitives)
+- **[Cloudflare Workers](https://developers.cloudflare.com/workers/)** for hosting
+- **[Vitest](https://vitest.dev/)** for unit tests
 
-```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/react-router-starter-template
-```
+## Getting started
 
-A live public deployment of this template is available at [https://react-router-starter-template.templates.workers.dev](https://react-router-starter-template.templates.workers.dev)
-
-### Installation
-
-Install the dependencies:
+Requires Node 20+ and [pnpm](https://pnpm.io/).
 
 ```bash
-npm install
+pnpm install      # first run approves native builds (esbuild, sharp, workerd)
+pnpm dev          # http://localhost:5173
 ```
 
-### Development
+## Scripts
 
-Start the development server with HMR:
+| Script           | Description                                              |
+| ---------------- | ------------------------------------------------------- |
+| `pnpm dev`       | Start the dev server with HMR                           |
+| `pnpm build`     | Production build (client + SSR worker)                  |
+| `pnpm preview`   | Build and preview locally                               |
+| `pnpm test`      | Run the unit test suite                                 |
+| `pnpm typecheck` | Generate types and run `tsc`                            |
+| `pnpm icons`     | Regenerate the icon/OG image set from the vector source |
+| `pnpm deploy`    | Build and deploy to Cloudflare Workers                  |
 
-```bash
-npm run dev
+## Project structure
+
+```
+app/
+  components/        Shared UI — site chrome, theme, shadcn primitives (ui/)
+  lib/               site config, SEO helpers, theme, cn()
+  routes/            home, tools directory, tools/:slug, sitemap, robots
+  tools/             One folder per tool + the registry
+    registry.ts      Register a tool here to make it routable + listed
+    splitter/        meta, pure transform, component, tests
+workers/app.ts       Cloudflare Workers request handler
+public/              Static assets: manifest, service worker, icons
+scripts/             Icon/OG image generation
 ```
 
-Your application will be available at `http://localhost:5173`.
+## Adding a tool
 
-## Typegen
+1. Create `app/tools/<slug>/` with:
+   - `meta.ts` — a `ToolMeta` (slug, name, tagline, description, keywords, icon).
+   - `<slug>.tsx` — the React component. Keep transformations in a pure,
+     testable module (see `splitter/transform.ts`).
+   - `index.ts` — combine meta + component into a `Tool`.
+2. Add the tool to the array in `app/tools/registry.ts`.
 
-Generate types for your Cloudflare bindings in `wrangler.json`:
-
-```sh
-npm run typegen
-```
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Previewing the Production Build
-
-Preview the production build locally:
-
-```bash
-npm run preview
-```
+That's it. The tool automatically gets a `/tools/<slug>` page with SEO meta, a
+listing on the home page and directory, and a sitemap entry.
 
 ## Deployment
 
-If you don't have a Cloudflare account, [create one here](https://dash.cloudflare.com/sign-up)! Go to your [Workers dashboard](https://dash.cloudflare.com/?to=%2F%3Aaccount%2Fworkers-and-pages) to see your [free custom Cloudflare Workers subdomain](https://developers.cloudflare.com/workers/configuration/routing/workers-dev/) on `*.workers.dev`.
+Deployed to **Cloudflare Workers** (not Pages) via the Cloudflare Vite plugin.
 
-Once that's done, you can build your app:
-
-```sh
-npm run build
+```bash
+pnpm deploy                          # deploy to production
+pnpm dlx wrangler versions upload    # deploy a preview URL
 ```
 
-And deploy it:
+## Privacy
 
-```sh
-npm run deploy
-```
-
-To deploy a preview URL:
-
-```sh
-npx wrangler versions upload
-```
-
-You can then promote a version to production after verification or roll it out progressively.
-
-```sh
-npx wrangler versions deploy
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+Tools process your input locally in the browser. There is no backend that
+receives your data.
