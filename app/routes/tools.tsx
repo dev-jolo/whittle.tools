@@ -1,20 +1,15 @@
 import type { Route } from "./+types/tools";
 import { ToolCard } from "@/components/tool-card";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
 import { tools } from "@/tools/registry";
 
 export function meta(_: Route.MetaArgs) {
-	const title = `Tools — ${siteConfig.name}`;
-	const description = `Browse every ${siteConfig.name} utility. ${siteConfig.tagline}`;
-	const url = absoluteUrl("/tools");
-	return [
-		{ title },
-		{ name: "description", content: description },
-		{ property: "og:title", content: title },
-		{ property: "og:description", content: description },
-		{ property: "og:url", content: url },
-		{ tagName: "link", rel: "canonical", href: url },
-	];
+	return pageMeta({
+		title: `Tools — ${siteConfig.name}`,
+		description: `Browse every ${siteConfig.name} utility. ${siteConfig.tagline}`,
+		path: "/tools",
+	});
 }
 
 export default function ToolsIndex() {

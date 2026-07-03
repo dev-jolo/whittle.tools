@@ -2,6 +2,7 @@ import { data, Link } from "react-router";
 
 import type { Route } from "./+types/tool";
 import { Badge } from "@/components/ui/badge";
+import { pageMeta } from "@/lib/seo";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 import { CATEGORY_LABELS } from "@/tools/types";
 import { getTool } from "@/tools/registry";
@@ -28,15 +29,31 @@ export function loader({ params }: Route.LoaderArgs) {
 export function meta({ data: tool }: Route.MetaArgs) {
 	if (!tool) return [{ title: `Tool not found — ${siteConfig.name}` }];
 	const title = `${tool.name} — ${siteConfig.name}`;
-	const url = absoluteUrl(`/tools/${tool.slug}`);
+	const path = `/tools/${tool.slug}`;
 	return [
-		{ title },
-		{ name: "description", content: tool.description },
-		{ name: "keywords", content: tool.keywords.join(", ") },
-		{ property: "og:title", content: title },
-		{ property: "og:description", content: tool.description },
-		{ property: "og:url", content: url },
-		{ tagName: "link", rel: "canonical", href: url },
+		...pageMeta({
+			title,
+			description: tool.description,
+			path,
+			keywords: tool.keywords,
+		}),
+		{
+			"script:ld+json": {
+				"@context": "https://schema.org",
+				"@type": "SoftwareApplication",
+				name: tool.name,
+				description: tool.description,
+				url: absoluteUrl(path),
+				applicationCategory: "DeveloperApplication",
+				operatingSystem: "Web browser",
+				offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+				isPartOf: {
+					"@type": "WebSite",
+					name: siteConfig.name,
+					url: siteConfig.url,
+				},
+			},
+		},
 	];
 }
 

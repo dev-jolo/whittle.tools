@@ -4,19 +4,26 @@ import { Link } from "react-router";
 import type { Route } from "./+types/home";
 import { ToolCard } from "@/components/tool-card";
 import { Button } from "@/components/ui/button";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
 import { tools } from "@/tools/registry";
 
 export function meta(_: Route.MetaArgs) {
-	const title = `${siteConfig.name} — ${siteConfig.tagline}`;
-	const url = absoluteUrl("/");
 	return [
-		{ title },
-		{ name: "description", content: siteConfig.description },
-		{ property: "og:title", content: title },
-		{ property: "og:description", content: siteConfig.description },
-		{ property: "og:url", content: url },
-		{ tagName: "link", rel: "canonical", href: url },
+		...pageMeta({
+			title: `${siteConfig.name} — ${siteConfig.tagline}`,
+			description: siteConfig.description,
+			path: "/",
+		}),
+		{
+			"script:ld+json": {
+				"@context": "https://schema.org",
+				"@type": "WebSite",
+				name: siteConfig.name,
+				url: siteConfig.url,
+				description: siteConfig.description,
+			},
+		},
 	];
 }
 

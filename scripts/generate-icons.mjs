@@ -57,3 +57,15 @@ for (const { file, size, maskable } of targets) {
 // A crisp vector favicon for browsers that support it.
 await writeFile(resolve(publicDir, "favicon.svg"), svg(512), "utf8");
 console.log("✓ favicon.svg");
+
+// Open Graph / social share image (1200×630).
+const OG_W = 1200;
+const OG_H = 630;
+const ogSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${OG_W}" height="${OG_H}" viewBox="0 0 ${OG_W} ${OG_H}">
+	<rect width="${OG_W}" height="${OG_H}" fill="${BG}"/>
+	<svg x="96" y="215" width="200" height="200" viewBox="0 0 24 24" fill="none">${MARK}</svg>
+	<text x="320" y="300" fill="${FG}" font-family="Geist, Inter, sans-serif" font-size="76" font-weight="700">whittle.tools</text>
+	<text x="322" y="360" fill="#a1a1a1" font-family="Geist, Inter, sans-serif" font-size="34">Sharp little tools for developers.</text>
+</svg>`;
+await sharp(Buffer.from(ogSvg)).png().toFile(resolve(publicDir, "og.png"));
+console.log("✓ og.png");
