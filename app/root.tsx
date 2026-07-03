@@ -10,6 +10,7 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
+import { RegisterServiceWorker } from "@/components/register-service-worker";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -27,6 +28,13 @@ export function loader({ request }: Route.LoaderArgs) {
 export const meta: Route.MetaFunction = () => [
 	{ title: `${siteConfig.name} — ${siteConfig.tagline}` },
 	{ name: "description", content: siteConfig.description },
+];
+
+export const links: Route.LinksFunction = () => [
+	{ rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+	{ rel: "icon", href: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+	{ rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+	{ rel: "manifest", href: "/manifest.webmanifest" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -59,6 +67,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 						<Toaster position="bottom-center" />
 					</TooltipProvider>
 				</ThemeProvider>
+				<RegisterServiceWorker />
 				<ScrollRestoration />
 				<Scripts />
 			</body>
