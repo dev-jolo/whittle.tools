@@ -1,7 +1,12 @@
 import type { LucideIcon } from "lucide-react";
 import type { ComponentType } from "react";
 
-export type ToolCategory = "text" | "data" | "converter" | "encoding";
+export type ToolCategory =
+	| "text"
+	| "data"
+	| "converter"
+	| "encoding"
+	| "generator";
 
 export type ToolStatus = "stable" | "beta";
 
@@ -32,6 +37,7 @@ export const CATEGORY_LABELS: Record<ToolCategory, string> = {
 	data: "Data",
 	converter: "Converters",
 	encoding: "Encoding",
+	generator: "Generators",
 };
 
 /** One-line blurb shown under each category heading on the directory. */
@@ -40,12 +46,14 @@ export const CATEGORY_DESCRIPTIONS: Record<ToolCategory, string> = {
 	data: "Format and reshape structured data.",
 	converter: "Convert between formats, units, and representations.",
 	encoding: "Encode, decode, and inspect encoded values.",
+	generator: "Generate identifiers, hashes, and placeholder content.",
 };
 
 /** Display order for categories in listings. */
 export const CATEGORY_ORDER: ToolCategory[] = [
 	"data",
 	"converter",
+	"generator",
 	"encoding",
 	"text",
 ];

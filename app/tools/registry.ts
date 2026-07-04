@@ -3,6 +3,7 @@ import { caseConverter } from "./case-converter";
 import { colorConverter } from "./color-converter";
 import { dataConverter } from "./data-converter";
 import { diffChecker } from "./diff-checker";
+import { hash } from "./hash";
 import { htmlEntities } from "./html-entities";
 import { jsonFormatter } from "./json-formatter";
 import { jwtDecoder } from "./jwt-decoder";
@@ -11,6 +12,7 @@ import { splitter } from "./splitter";
 import { timestamp } from "./timestamp";
 import type { Tool, ToolMeta } from "./types";
 import { urlEncoder } from "./url-encoder";
+import { uuid } from "./uuid";
 
 /**
  * The tool catalog. Register a tool here and it automatically appears in the
@@ -25,6 +27,8 @@ export const tools: Tool[] = [
 	numberBase,
 	colorConverter,
 	caseConverter,
+	uuid,
+	hash,
 	base64Tool,
 	urlEncoder,
 	htmlEntities,
