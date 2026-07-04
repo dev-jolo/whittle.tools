@@ -127,11 +127,6 @@ export function JsonFormatter() {
 					</div>
 
 					<div className="flex items-center gap-2">
-						<Switch
-							id="sort-keys"
-							checked={options.sortKeys}
-							onCheckedChange={(value) => setOption("sortKeys", value)}
-						/>
 						<Label htmlFor="sort-keys" className="font-normal">
 							Sort keys A→Z
 						</Label>
@@ -150,6 +145,11 @@ export function JsonFormatter() {
 								output. Array order is left untouched.
 							</TooltipContent>
 						</Tooltip>
+						<Switch
+							id="sort-keys"
+							checked={options.sortKeys}
+							onCheckedChange={(value) => setOption("sortKeys", value)}
+						/>
 					</div>
 				</div>
 			</section>

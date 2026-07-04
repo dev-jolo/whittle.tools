@@ -106,24 +106,29 @@ function ToggleRow({
 	onCheckedChange: (value: boolean) => void;
 }) {
 	return (
-		<div className="flex items-center justify-between gap-2">
-			<div className="flex items-center gap-1.5">
-				<Label htmlFor={id} className="font-normal">
-					{label}
-				</Label>
-				<Tooltip>
-					<TooltipTrigger asChild>
-						<button
-							type="button"
-							className="text-muted-foreground/70 hover:text-foreground"
-							aria-label={`About ${label}`}
-						>
-							<InfoIcon className="size-3.5" />
-						</button>
-					</TooltipTrigger>
-					<TooltipContent className="max-w-56">{hint}</TooltipContent>
-				</Tooltip>
-			</div>
+		// Switch trails its label — the familiar iOS/Android settings convention —
+		// but the two stay in one tight, content-width group (no justify-between)
+		// so the switch always hugs its own label. The old justify-between spread
+		// them to opposite edges of a wide grid cell, so a switch drifted next to
+		// the *next* toggle's label. Research says a trailing switch is fine only
+		// when it stays close; a far-right switch in a wide column hurts scanning
+		// and low-vision screen magnification.
+		<div className="flex items-center gap-2">
+			<Label htmlFor={id} className="font-normal">
+				{label}
+			</Label>
+			<Tooltip>
+				<TooltipTrigger asChild>
+					<button
+						type="button"
+						className="text-muted-foreground/70 hover:text-foreground"
+						aria-label={`About ${label}`}
+					>
+						<InfoIcon className="size-3.5" />
+					</button>
+				</TooltipTrigger>
+				<TooltipContent className="max-w-56">{hint}</TooltipContent>
+			</Tooltip>
 			<Switch id={id} checked={checked} onCheckedChange={onCheckedChange} />
 		</div>
 	);
