@@ -1,9 +1,14 @@
 import { base64Tool } from "./base64";
+import { caseConverter } from "./case-converter";
+import { colorConverter } from "./color-converter";
+import { dataConverter } from "./data-converter";
 import { diffChecker } from "./diff-checker";
 import { htmlEntities } from "./html-entities";
 import { jsonFormatter } from "./json-formatter";
 import { jwtDecoder } from "./jwt-decoder";
+import { numberBase } from "./number-base";
 import { splitter } from "./splitter";
+import { timestamp } from "./timestamp";
 import type { Tool, ToolMeta } from "./types";
 import { urlEncoder } from "./url-encoder";
 
@@ -15,6 +20,11 @@ export const tools: Tool[] = [
 	splitter,
 	jsonFormatter,
 	diffChecker,
+	dataConverter,
+	timestamp,
+	numberBase,
+	colorConverter,
+	caseConverter,
 	base64Tool,
 	urlEncoder,
 	htmlEntities,
