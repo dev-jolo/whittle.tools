@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 import { CopyIcon, InfoIcon, SparklesIcon, Trash2Icon } from "lucide-react";
 import { toast } from "sonner";
 
@@ -133,7 +133,16 @@ export function Splitter() {
 	const [input, setInput] = useState("");
 	const [options, setOptions] = useState<SplitterOptions>(DEFAULT_OPTIONS);
 
-	const result = useMemo(() => splitText(input, options), [input, options]);
+	// Derive from a deferred copy of the input so typing and large pastes stay
+	// responsive — the split + output render run at a lower priority. `isStale`
+	// is true while the output is catching up. Everything is client-side (the
+	// app is an offline PWA), so this keeps heavy work off the typing path.
+	const deferredInput = useDeferredValue(input);
+	const result = useMemo(
+		() => splitText(deferredInput, options),
+		[deferredInput, options],
+	);
+	const isStale = deferredInput !== input;
 
 	function setOption<K extends keyof SplitterOptions>(
 		key: K,
@@ -357,9 +366,15 @@ export function Splitter() {
 					<header className="flex items-center justify-between gap-2 border-b p-3">
 						<div className="flex items-center gap-2">
 							<h2 className="text-sm font-medium">Output</h2>
-							<Badge variant="secondary" className="tabular-nums">
-								{result.count} {result.count === 1 ? "item" : "items"}
-							</Badge>
+							{isStale && input ? (
+								<Badge variant="secondary" className="text-muted-foreground">
+									Working…
+								</Badge>
+							) : (
+								<Badge variant="secondary" className="tabular-nums">
+									{result.count} {result.count === 1 ? "item" : "items"}
+								</Badge>
+							)}
 						</div>
 						<Button size="sm" onClick={handleCopy} disabled={!result.output}>
 							<CopyIcon className="size-4" />
@@ -372,8 +387,9 @@ export function Splitter() {
 						placeholder="Your formatted output appears here."
 						spellCheck={false}
 						className={cn(
-							"min-h-72 resize-y rounded-none border-0 font-mono text-sm shadow-none focus-visible:ring-0",
+							"min-h-72 resize-y rounded-none border-0 font-mono text-sm shadow-none transition-opacity focus-visible:ring-0",
 							!result.output && "text-muted-foreground",
+							isStale && "opacity-50",
 						)}
 					/>
 				</section>

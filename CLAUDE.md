@@ -26,6 +26,12 @@ whittle.tools — a collection of client-side developer utilities. React Router 
 - **Keep logic pure.** Put a tool's transformation in a dependency-free module
   (e.g. `splitter/transform.ts`) and unit test it. The `.tsx` component is just
   the UI around that function. Everything runs client-side; there is no backend.
+- **Live transforms stay responsive.** Tools run their transform on every
+  keystroke, so compute the result from a `useDeferredValue(input)` copy (not
+  `input` directly) and dim the output while `deferredInput !== input`. This
+  keeps typing and large pastes snappy on the main thread. See `splitter.tsx` /
+  `json-formatter/json-formatter.tsx`. Don't wrap this in a hook that closes over
+  `options` — that breaks the `useMemo` deps.
 - **Routing** is config-based in `app/routes.ts` (not file-based). Resource
   routes (`sitemap.ts`, `robots.ts`) export only a `loader` returning a Response.
 - **SEO** goes through `app/lib/seo.ts` (`pageMeta`) plus per-route JSON-LD in
