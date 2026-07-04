@@ -7,7 +7,10 @@ import { hash } from "./hash";
 import { htmlEntities } from "./html-entities";
 import { jsonFormatter } from "./json-formatter";
 import { jwtDecoder } from "./jwt-decoder";
+import { loremIpsum } from "./lorem-ipsum";
 import { numberBase } from "./number-base";
+import { password } from "./password";
+import { qrCode } from "./qr-code";
 import { splitter } from "./splitter";
 import { timestamp } from "./timestamp";
 import type { Tool, ToolMeta } from "./types";
@@ -29,6 +32,9 @@ export const tools: Tool[] = [
 	caseConverter,
 	uuid,
 	hash,
+	password,
+	loremIpsum,
+	qrCode,
 	base64Tool,
 	urlEncoder,
 	htmlEntities,
