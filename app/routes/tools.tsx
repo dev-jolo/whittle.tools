@@ -1,8 +1,8 @@
 import type { Route } from "./+types/tools";
-import { ToolCard } from "@/components/tool-card";
+import { ToolDirectory } from "@/components/tool-directory";
 import { pageMeta } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
-import { tools } from "@/tools/registry";
+import { toolMetas } from "@/tools/registry";
 
 export function meta(_: Route.MetaArgs) {
 	return pageMeta({
@@ -23,10 +23,8 @@ export default function ToolsIndex() {
 				</p>
 			</header>
 
-			<div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-				{tools.map((tool) => (
-					<ToolCard key={tool.slug} tool={tool} />
-				))}
+			<div className="mt-8">
+				<ToolDirectory tools={toolMetas} />
 			</div>
 		</div>
 	);

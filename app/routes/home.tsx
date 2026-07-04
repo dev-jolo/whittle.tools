@@ -6,7 +6,10 @@ import { ToolCard } from "@/components/tool-card";
 import { Button } from "@/components/ui/button";
 import { pageMeta } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
-import { tools } from "@/tools/registry";
+import { toolMetas } from "@/tools/registry";
+
+/** A curated handful for the landing page; the full set lives on /tools. */
+const FEATURED = toolMetas.slice(0, 6);
 
 export function meta(_: Route.MetaArgs) {
 	return [
@@ -66,7 +69,7 @@ export default function Home() {
 						</Link>
 					</Button>
 					<Button asChild size="lg" variant="outline">
-						<Link to={`/tools/${tools[0].slug}`}>Try {tools[0].name}</Link>
+						<Link to={`/tools/${FEATURED[0].slug}`}>Try {FEATURED[0].name}</Link>
 					</Button>
 				</div>
 			</section>
@@ -74,17 +77,17 @@ export default function Home() {
 			<section aria-labelledby="tools-heading" className="pb-8">
 				<div className="flex items-end justify-between">
 					<h2 id="tools-heading" className="text-xl font-semibold tracking-tight">
-						Tools
+						Popular tools
 					</h2>
 					<Link
 						to="/tools"
 						className="text-muted-foreground hover:text-foreground text-sm transition-colors"
 					>
-						View all
+						View all {toolMetas.length}
 					</Link>
 				</div>
 				<div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{tools.map((tool) => (
+					{FEATURED.map((tool) => (
 						<ToolCard key={tool.slug} tool={tool} />
 					))}
 				</div>

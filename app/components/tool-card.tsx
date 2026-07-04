@@ -7,13 +7,13 @@ import {
 	HoverCardContent,
 	HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { CATEGORY_LABELS, type Tool } from "@/tools/types";
+import { CATEGORY_LABELS, type ToolMeta } from "@/tools/types";
 
 /**
  * A tool tile that links to the tool page. Hovering (or focusing) reveals a
  * hover card with the full description — a quick preview without navigating.
  */
-export function ToolCard({ tool }: { tool: Tool }) {
+export function ToolCard({ tool }: { tool: ToolMeta }) {
 	const { icon: Icon } = tool;
 
 	return (

@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import type { ComponentType } from "react";
 
-export type ToolCategory = "text" | "data" | "encoding";
+export type ToolCategory = "text" | "data" | "converter" | "encoding";
 
 export type ToolStatus = "stable" | "beta";
 
@@ -30,5 +30,22 @@ export interface Tool extends ToolMeta {
 export const CATEGORY_LABELS: Record<ToolCategory, string> = {
 	text: "Text",
 	data: "Data",
+	converter: "Converters",
 	encoding: "Encoding",
 };
+
+/** One-line blurb shown under each category heading on the directory. */
+export const CATEGORY_DESCRIPTIONS: Record<ToolCategory, string> = {
+	text: "Reshape, split, and compare plain text.",
+	data: "Format and reshape structured data.",
+	converter: "Convert between formats, units, and representations.",
+	encoding: "Encode, decode, and inspect encoded values.",
+};
+
+/** Display order for categories in listings. */
+export const CATEGORY_ORDER: ToolCategory[] = [
+	"data",
+	"converter",
+	"encoding",
+	"text",
+];
