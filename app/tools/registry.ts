@@ -1,3 +1,4 @@
+import { diffChecker } from "./diff-checker";
 import { jsonFormatter } from "./json-formatter";
 import { splitter } from "./splitter";
 import type { Tool, ToolMeta } from "./types";
@@ -6,7 +7,7 @@ import type { Tool, ToolMeta } from "./types";
  * The tool catalog. Register a tool here and it automatically appears in the
  * directory, gets a /tools/:slug page, and is listed in the sitemap.
  */
-export const tools: Tool[] = [splitter, jsonFormatter];
+export const tools: Tool[] = [splitter, jsonFormatter, diffChecker];
 
 /** Component-free metadata — safe for listings, sitemap, and structured data. */
 export const toolMetas: ToolMeta[] = tools.map(
