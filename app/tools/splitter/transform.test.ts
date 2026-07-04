@@ -91,4 +91,14 @@ describe("splitText", () => {
 		);
 		expect(result.output).toBe("[\n  a,\n  b\n]");
 	});
+
+	it("composes trim, remove-empty, dedupe, sort, and one-per-line together", () => {
+		const result = splitText(
+			"  banana \n\napple\nbanana\ncherry\n",
+			options({ dedupe: true, sort: "asc", itemsPerLine: true }),
+		);
+		expect(result.items).toEqual(["apple", "banana", "cherry"]);
+		expect(result.count).toBe(3);
+		expect(result.output).toBe('[\n  "apple",\n  "banana",\n  "cherry"\n]');
+	});
 });
