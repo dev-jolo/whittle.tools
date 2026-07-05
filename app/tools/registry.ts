@@ -5,12 +5,14 @@ import { codeFormatter } from "./code-formatter";
 import { colorConverter } from "./color-converter";
 import { dataConverter } from "./data-converter";
 import { diffChecker } from "./diff-checker";
+import { fakeValue } from "./fake-value";
 import { hash } from "./hash";
 import { htmlEntities } from "./html-entities";
 import { jsonFormatter } from "./json-formatter";
 import { jwtDecoder } from "./jwt-decoder";
 import { lineUtilities } from "./line-utilities";
 import { loremIpsum } from "./lorem-ipsum";
+import { mockDataGenerator } from "./mock-data-generator";
 import { numberBase } from "./number-base";
 import { password } from "./password";
 import { qrCode } from "./qr-code";
@@ -30,6 +32,7 @@ import { xmlFormatter } from "./xml-formatter";
  */
 export const tools: Tool[] = [
 	regexTester,
+	mockDataGenerator,
 	splitter,
 	jsonFormatter,
 	xmlFormatter,
@@ -44,6 +47,7 @@ export const tools: Tool[] = [
 	lineUtilities,
 	slugify,
 	charCounter,
+	fakeValue,
 	uuid,
 	hash,
 	password,
