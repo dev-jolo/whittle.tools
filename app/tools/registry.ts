@@ -1,5 +1,6 @@
 import { base64Tool } from "./base64";
 import { caseConverter } from "./case-converter";
+import { charCounter } from "./char-counter";
 import { colorConverter } from "./color-converter";
 import { dataConverter } from "./data-converter";
 import { diffChecker } from "./diff-checker";
@@ -7,10 +8,13 @@ import { hash } from "./hash";
 import { htmlEntities } from "./html-entities";
 import { jsonFormatter } from "./json-formatter";
 import { jwtDecoder } from "./jwt-decoder";
+import { lineUtilities } from "./line-utilities";
 import { loremIpsum } from "./lorem-ipsum";
 import { numberBase } from "./number-base";
 import { password } from "./password";
 import { qrCode } from "./qr-code";
+import { regexTester } from "./regex-tester";
+import { slugify } from "./slugify";
 import { splitter } from "./splitter";
 import { timestamp } from "./timestamp";
 import type { Tool, ToolMeta } from "./types";
@@ -22,6 +26,7 @@ import { uuid } from "./uuid";
  * directory, gets a /tools/:slug page, and is listed in the sitemap.
  */
 export const tools: Tool[] = [
+	regexTester,
 	splitter,
 	jsonFormatter,
 	diffChecker,
@@ -30,6 +35,9 @@ export const tools: Tool[] = [
 	numberBase,
 	colorConverter,
 	caseConverter,
+	lineUtilities,
+	slugify,
+	charCounter,
 	uuid,
 	hash,
 	password,
