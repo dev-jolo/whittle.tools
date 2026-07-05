@@ -1,6 +1,7 @@
 import { base64Tool } from "./base64";
 import { caseConverter } from "./case-converter";
 import { charCounter } from "./char-counter";
+import { codeFormatter } from "./code-formatter";
 import { colorConverter } from "./color-converter";
 import { dataConverter } from "./data-converter";
 import { diffChecker } from "./diff-checker";
@@ -16,10 +17,12 @@ import { qrCode } from "./qr-code";
 import { regexTester } from "./regex-tester";
 import { slugify } from "./slugify";
 import { splitter } from "./splitter";
+import { sqlFormatter } from "./sql-formatter";
 import { timestamp } from "./timestamp";
 import type { Tool, ToolMeta } from "./types";
 import { urlEncoder } from "./url-encoder";
 import { uuid } from "./uuid";
+import { xmlFormatter } from "./xml-formatter";
 
 /**
  * The tool catalog. Register a tool here and it automatically appears in the
@@ -29,6 +32,9 @@ export const tools: Tool[] = [
 	regexTester,
 	splitter,
 	jsonFormatter,
+	xmlFormatter,
+	sqlFormatter,
+	codeFormatter,
 	diffChecker,
 	dataConverter,
 	timestamp,
